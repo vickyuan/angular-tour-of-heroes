@@ -21,7 +21,8 @@ export class HeroesComponent implements OnInit {
   }
 
   getHeroesC(): void {
-    this.heroes = this.heroService.getHeroesS();
+    this.heroService.getHeroesS()
+        .subscribe(heroesobs => this.heroes = heroesobs);
   }
 
   constructor(private heroService: HeroService) { }
