@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Hero } from '../hero';
-import { HEROES } from '../mock-heroes';
+import { HeroService } from '../hero.service';
+import {Hero} from '../hero';
 
 @Component({
   selector: 'app-heroes',
@@ -13,16 +13,21 @@ export class HeroesComponent implements OnInit {
     id: 1,
     name: 'Windstorm'
   };*/
-  heroes = HEROES;
+  heroes: Hero[];
 
   selectedHero: Hero;
   onSelect(herohtml: Hero): void {
     this.selectedHero = herohtml;
   }
 
-  constructor() { }
+  getHeroesC(): void {
+    this.heroes = this.heroService.getHeroesS();
+  }
 
+  constructor(private heroService: HeroService) { }
+  // 页面出来就要加载的数据的对应的方法写这里，有动作才响应的写外面
   ngOnInit() {
+    this.getHeroesC();
   }
 
 }
