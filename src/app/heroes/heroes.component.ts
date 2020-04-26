@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroService } from '../hero.service';
+import { MessageService } from '../message.service';
 import {Hero} from '../hero';
 
 @Component({
@@ -16,8 +17,12 @@ export class HeroesComponent implements OnInit {
   heroes: Hero[];
 
   selectedHero: Hero;
+
+  constructor(private heroService: HeroService, private messageService: MessageService) { }
+
   onSelect(herohtml: Hero): void {
     this.selectedHero = herohtml;
+    this.messageService.add(`HeroService: Selected hero id=${herohtml.id}`);
   }
 
   getHeroesC(): void {
@@ -25,7 +30,7 @@ export class HeroesComponent implements OnInit {
         .subscribe(heroesobs => this.heroes = heroesobs);
   }
 
-  constructor(private heroService: HeroService) { }
+
   // 页面出来就要加载的数据的对应的方法写这里，有动作才响应的写外面
   ngOnInit() {
     this.getHeroesC();
